@@ -8,6 +8,15 @@ a {
 	display: inline-block;
 	text-decoration: none;
 	color: black;
-	margin-right: 30px;
+	margin-right: 100px;
 	text-align: center; 
+}
+a:hover {
+	color: red;
+}
+footer {
+	position: fixed;
+	bottom: 0px;
+	background-color: black;
+	color : white;
 }
