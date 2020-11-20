@@ -42,7 +42,68 @@ MongoClient.connect(url, {useUnifiedTopology: true},(err, db) => {
 
             	res.render("cars", { cars: brands, nCars: results });
 			});
-		});	
+		});
+		for (i = 0;i < cars.length;i++) {
+	template += `<div>` + cars[i].brand + ` ` + cars[i].model + ` <a id="`+ cars[i].model + `" name="name" href="` + cars[i].brand + `"> Add to basket</a> <span id="`+ cars[i].brand + `">Already in basket</span></div> <style type="text/css" scoped> #` + cars[i].brand +` {display: none;}</style>`;
+}
+template += `<h1> In basket</h1>`;
+template += `<div id="noItem">There is no item.</div>`;
+app.get("/", function (req, res) {
+	res.send(template);
+});
+app.get("/Toyota", function (req, res) {
+	template = template + `<style type="text/css" scoped> #Camry{display: none;} #Toyota {display: inline;} #noItem {display:none;}</style>`;
+	//console.log(template);
+	cookieOfCars = req.cookies['cars'];
+	if (!cookieOfCars) {
+		template = template + "<span> Itesms with id: 1</span>"
+	}
+	else {
+		template = template + "<span> , 1</span>";
+	}
+	if (cookieOfCars === undefined) {
+		cookieOfCars = "";
+	}
+	res.cookie('cars', cookieOfCars + "id=1 ");
+	res.send(`<a href="/">Back</a>`);
+		
+});
+app.get("/BMW", function (req, res) {
+	template = template + `<style type="text/css" scoped> #X6 {display: none;} #BMW {display: inline;} #noItem {display:none;}</style>`;
+	//console.log(template);
+	cookieOfCars = req.cookies['cars'];
+	if (!cookieOfCars) {
+		template = template + "<span> Itesms with id: 2</span>"
+	}
+	else {
+		template = template + "<span> , 2</span>";
+	}
+	if (cookieOfCars === undefined) {
+		cookieOfCars = "";
+	}
+	res.cookie('cars',cookieOfCars + "id=2 ");
+	res.send(`<a href="/">Back</a>`);
+		
+});
+app.get("/Daewoo", function (req, res) {
+	template = template + `<style type="text/css" scoped> #Nexia{display: none;} #Daewoo {display: inline;} #noItem {display:none;}</style>`;
+	//console.log(template);
+	cookieOfCars = req.cookies['cars'];
+	console.log(cookieOfCars);
+	if (!cookieOfCars) {
+		template = template + "<span> Itesms with id: 3</span>"
+	}
+	else {
+		template = template + "<span> , 3</span>";
+	}
+	if (cookieOfCars === undefined) {
+		cookieOfCars = "";
+	}
+	res.cookie('cars', cookieOfCars + "id=3 ");
+
+	res.send(`<a href="/">Back</a>`);
+		
+});	
 			
 
 	app.listen(3002, function() {
