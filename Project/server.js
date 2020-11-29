@@ -110,3 +110,18 @@ app.get("/Daewoo", function (req, res) {
 		console.log("LISTENING...");
 	});
 });
+const express = require('express');
+const app = express();
+const router = require('./router');
+let session = require('express-session');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+app.use(session({secret: "Shh, it's secret"}));
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(router.router);
+app.listen(3002, function() {
+	console.log("LISTENING...");
+});
